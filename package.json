@@ -1,0 +1,21 @@
+{
+  "name": "rbac-server",
+  "version": "1.0.0",
+  "description": "This repository is a part of my MERN recap session. In this, I have practiced the Role Based Access Control.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Suprio-Das/RBAC-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Suprio-Das/RBAC-Server/issues"
+  },
+  "homepage": "https://github.com/Suprio-Das/RBAC-Server#readme"
+}
