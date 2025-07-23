@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Suprio-Das/RBAC-Server/issues"
   },
-  "homepage": "https://github.com/Suprio-Das/RBAC-Server#readme"
+  "homepage": "https://github.com/Suprio-Das/RBAC-Server#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
