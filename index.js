@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const { default: mongoose } = require('mongoose');
 const UserModel = require('./Models/User');
 dotenv.config()
 const app = express();
@@ -15,47 +16,34 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 app.get('/', (req, res) => {
     res.send("RBAC server is running!!!");
 })
 
 // MongoDB Connection
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.63zdo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.63zdo.mongodb.net/RBACTest?retryWrites=true&w=majority&appName=Cluster0`)
+    .then(() => {
+        console.log("MongoDB Connected.")
+    })
+    .catch(error => {
+        console.log(error.message)
+    })
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
-
-async function run() {
-    try {
-        await client.connect();
-        const database = client.db('RBAC-Test');
-
-        // Register
-        app.post('/register', (req, res) => {
-            const { name, email, password } = req.body;
-            bcrypt.hash(password, 10)
-                .then(hash => {
-                    UserModel.create({ name, email, password: hash })
-                        .then(result => res.json({ status: "Ok" }))
-                        .catch(error => res.json(error))
-                })
+app.post('/register', (req, res) => {
+    const { name, email, password } = req.body;
+    bcrypt.hash(password, 10)
+        .then(hash => {
+            UserModel.create({ name, email, password: hash })
+                .then(result => res.json({ status: "Ok" }))
                 .catch(error => res.json(error))
         })
-
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-        console.log("MongoDB connected")
-    }
-}
-run().catch(console.dir);
-
+        .catch(error => res.json(error))
+})
 
 app.listen(PORT);
