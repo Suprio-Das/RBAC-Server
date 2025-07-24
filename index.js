@@ -40,7 +40,13 @@ async function run() {
         // Register
         app.post('/register', (req, res) => {
             const { name, email, password } = req.body;
-            bcrypt.hash(password, 10);
+            bcrypt.hash(password, 10)
+                .then(hash => {
+                    UserModel.create({ name, email, password: hash })
+                        .then(result => res.json({ status: "Ok" }))
+                        .catch(error => res.json(error))
+                })
+                .catch(error => res.json(error))
         })
 
     } finally {
