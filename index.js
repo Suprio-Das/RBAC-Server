@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const UserModel = require('./Models/User');
 dotenv.config()
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -19,7 +20,6 @@ app.get('/', (req, res) => {
 })
 
 // MongoDB Connection
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.63zdo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -36,6 +36,13 @@ async function run() {
     try {
         await client.connect();
         const database = client.db('RBAC-Test');
+
+        // Register
+        app.post('/register', (req, res) => {
+            const { name, email, password } = req.body;
+            bcrypt.hash(password, 10);
+        })
+
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
