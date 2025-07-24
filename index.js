@@ -35,6 +35,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         await client.connect();
+        const database = client.db('RBAC-Test');
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
