@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This repository is a part of my MERN recap session. In this, I have practiced the Role Based Access Control.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
