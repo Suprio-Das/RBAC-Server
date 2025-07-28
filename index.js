@@ -13,10 +13,10 @@ app.use(cors());
 
 DbCon();
 
+app.use('/api/auth', AuthRoutes);
+
 app.use('/', (req, res) => {
     res.send('Server is running!');
 })
-
-app.use('/api/auth', AuthRoutes);
 
 app.listen(PORT);
