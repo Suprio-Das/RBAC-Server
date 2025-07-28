@@ -26,3 +26,11 @@ export const register = async (req, res) => {
         console.log(error)
     }
 }
+
+export const login = async (req, res) => {
+    try {
+        console.log("Login Route is working.");
+    } catch (error) {
+        console.log(error);
+    }
+}
