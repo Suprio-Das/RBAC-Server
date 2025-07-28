@@ -70,7 +70,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
     try {
-        res.clearCookies('token');
+        res.clearCookie('token');
         res.status(200).json({ success: true, message: "User logout successfully" })
     } catch (error) {
         res.status(501).json({ success: false, message: 'Internal Server Error' })
