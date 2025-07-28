@@ -29,7 +29,23 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        console.log("Login Route is working.");
+        const { email, password } = req.body;
+
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+
+        const isValidPassword = bcrypt.compare(password, user.password);
+        if (!isValidPassword) {
+            res.status(401).json({
+                success: false,
+                message: "User password not matched"
+            })
+        }
     } catch (error) {
         console.log(error);
     }
