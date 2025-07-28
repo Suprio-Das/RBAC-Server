@@ -55,7 +55,15 @@ export const login = async (req, res) => {
             secure: false,
             maxAge: 360000
         })
+
+        res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            user,
+            token
+        })
     } catch (error) {
-        console.log(error);
+        res.status(501).json({ success: false, message: 'Internal Server Error' })
+        console.log(error)
     }
 }
