@@ -1,5 +1,6 @@
 import UserModel from "../Models/User.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {
     try {
@@ -46,6 +47,14 @@ export const login = async (req, res) => {
                 message: "User password not matched"
             })
         }
+
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_Secret)
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 360000
+        })
     } catch (error) {
         console.log(error);
     }
