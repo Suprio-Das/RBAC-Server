@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import DbCon from './utils/db.js';
-import AuthRoutes from './routes/AuthRoutes.js';
+import AuthRoutes from './routes/AuthRouter.js';
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 
