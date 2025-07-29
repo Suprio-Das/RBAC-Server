@@ -8,3 +8,4 @@ This repository is a part of my MERN recap session. In this, I have practiced th
 - Dotenv
 - Json Web Token
 - Bcrypt
+- Mongoose
