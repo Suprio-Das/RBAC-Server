@@ -7,3 +7,4 @@ This repository is a part of my MERN recap session. In this, I have practiced th
 - MongoDB
 - Dotenv
 - Json Web Token
+- Bcrypt
