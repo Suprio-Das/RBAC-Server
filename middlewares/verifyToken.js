@@ -21,6 +21,9 @@ const isAdmin = async (req, res, next) => {
             res.status(403).json({ message: "Unauthorized: User is not an admin" })
         }
 
+        req.user = user;
+        next();
+
     } catch (error) {
         console.log(error)
     }
