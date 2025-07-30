@@ -1,4 +1,4 @@
-const GetUser = async (req, res, next) => {
+const GetUser = async (req, res) => {
     try {
         console.log('All users!')
     } catch (error) {
