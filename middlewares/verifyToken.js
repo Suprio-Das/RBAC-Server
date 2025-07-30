@@ -8,6 +8,9 @@ const isAdmin = async (req, res, next) => {
             res.status(401).json({ message: "Unauthorized: No token found" })
         }
 
+        const decoded_token = jwt.verify(token, process.env.JWT_Secret);
+        console.log(decoded_token);
+
     } catch (error) {
         console.log(error)
     }
