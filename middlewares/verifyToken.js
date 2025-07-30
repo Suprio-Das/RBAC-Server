@@ -2,9 +2,11 @@ import jwt from 'jsonwebtoken';
 
 const isAdmin = async (req, res, next) => {
     try {
-        const token = req.cookie.token;
+        const token = await req.cookies.token;
         console.log(token);
     } catch (error) {
-        res.status(500).json({ success: false, message: "Internal Server error" });
+        console.log(error)
     }
 }
+
+export { isAdmin }
