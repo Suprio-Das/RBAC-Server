@@ -12,6 +12,10 @@ const GetUser = async (req, res) => {
 const DeleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
+        const checkAdmin = await UserModel.findById(userId);
+        if (checkAdmin.role == 'admin') {
+            return res.status(409).json({ message: "You can't delete yourself.  " })
+        }
         const user = await UserModel.findByIdAndDelete(userId);
 
         if (!user) {
