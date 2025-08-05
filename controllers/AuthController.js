@@ -34,15 +34,15 @@ export const login = async (req, res) => {
 
         const user = await UserModel.findOne({ email });
         if (!user) {
-            res.status(404).json({
+            return res.status(404).json({
                 success: false,
                 message: "User not found"
             })
         }
 
-        const isValidPassword = bcrypt.compare(password, user.password);
+        const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) {
-            res.status(401).json({
+            return res.status(401).json({
                 success: false,
                 message: "User password not matched"
             })
@@ -56,12 +56,7 @@ export const login = async (req, res) => {
             maxAge: 360000
         })
 
-        res.status(200).json({
-            success: true,
-            message: "User logged in successfully",
-            user,
-            token
-        })
+        res.status(200).json({ success: true, message: 'User Logged in Successfully' })
     } catch (error) {
         res.status(501).json({ success: false, message: 'Internal Server Error' })
         console.log(error)
